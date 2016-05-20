@@ -45,6 +45,11 @@ import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.NGram;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence;
 import de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Token;
 
+// From the top of the dkpro-core project directory, the following 
+// command will run just the DictionaryAnnotator part of the project. 
+//
+// mvn test -pl dkpro-core-dictionaryannotator-asl -am
+
 /**
  * Takes a plain text file with phrases as input and annotates the phrases in the CAS file. The
  * annotation type defaults to {@link NGram}, but can be changed.
@@ -157,9 +162,19 @@ public class DictionaryAnnotator
 
 				for (int j = 0; j < tokensToSentenceEnd.size(); j++) {
 					sentenceToEnd[j] = tokensToSentenceEnd.get(j).getCoveredText();
+					System.out.println("## " + sentenceToEnd[j]);
 				}
+				System.out.println("===============");
+
+				/*
+				for (int j = 0; j < tokensToSentenceEnd.size(); j++) {
+                    sentenceToEnd[j] = tokensToSentenceEnd.get(j).getLemma().getValue();
+                }
+                */
 
 				String[] longestMatch = phrases.getLongestMatch(sentenceToEnd);
+				System.out.println(longestMatch);
+				System.out.println("---------------");
 
 				if (longestMatch != null) {
 					Token beginToken = tokens.get(i);
